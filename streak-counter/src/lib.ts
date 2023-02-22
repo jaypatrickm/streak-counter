@@ -1,11 +1,6 @@
 import { Streak } from ".";
 export const STREAK_KEY = "streak";
-export function differenceInDays(dateLeft: Date, dateRight: Date): number {
-  const diffTime = Math.abs(dateLeft.getTime() - dateRight.getTime());
-  const differenceInDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  
-  return differenceInDays;
-}
+export function differenceInDays(from: string, to: string) { return  Math.floor((new Date(from).getTime() - new Date(to).getTime ()) / 86400000)}
 
 export function formattedDate(date: Date): string {
   return date.toLocaleDateString("en-US")
@@ -14,7 +9,7 @@ export function formattedDate(date: Date): string {
 export function shouldIncrementOrResetStreakCount(currentDate: Date, lastLoginDate: string): "increment" | "none" | "reset" {
   // We get 11/5/2021
   // so to get 5, we use our helper function
-  const difference = differenceInDays(currentDate, new Date(lastLoginDate));
+  const difference = differenceInDays(currentDate.toDateString(), lastLoginDate);
   if(difference === 0) {
     return "none"
   }
